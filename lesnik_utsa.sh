@@ -46,7 +46,7 @@ update() {
 		printf_n "${C_LGn}Updating...${RES}"
 		docker stop polkadot_utsa
 		docker rm polkadot_utsa
-		docker run -dit --name polkadot_utsa --restart always --network host -v $HOME/.polkadot:/data -u $(id -u ${USER}):$(id -g ${USER}) parity/polkadot:latest --base-path /data --validator --name "utsa" --state-pruning 16 --blocks-pruning 16 --insecure-validator-i-know-what-i-do --port 30333 --rpc-port 9933 --prometheus-port 9615 --in-peers 12 --out-peers 8 --telemetry-url 'wss://telemetry.polkadot.io/submit/ 1' --telemetry-url 'wss://telemetry-backend.w3f.community/submit 1'
+		docker run -dit --name polkadot_utsa --restart always --network host -v $HOME/.polkadot:/data -u $(id -u ${USER}):$(id -g ${USER}) parity/polkadot:latest --base-path /data --validator --name "utsa" --state-pruning 16 --blocks-pruning 16 --insecure-validator-i-know-what-i-do --public-addr /ip4/$(wget -qO- eth0.me)/tcp/30333 --port 30333 --rpc-port 9933 --prometheus-port 9615 --in-peers 12 --out-peers 8 --telemetry-url 'wss://telemetry.polkadot.io/submit/ 1' --telemetry-url 'wss://telemetry-backend.w3f.community/submit 1'
 	else
 		printf_n "${C_LGn}Node version is current!${RES}"
 	fi
